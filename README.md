@@ -4,6 +4,8 @@ Progetto del corso di Ingegneria del Software 2, terzo anno della laurea trienna
 
 ## Studenti
 
-[Stefano Perenzoni](mailto:stefano.perenzoni@studenti.unitn.it) 193713
-
-[Marcello Rigotti](mailto:marcello.rigottistudenti.unitn.it) 192865
+|     #    |                   |                 @                   |
+|:--------:|-------------------|------------------------------------:|
+| `193713` | Stefano Perenzoni | stefano.perenzoni@studenti.unitn.it |
+| `192865` | Marcello Rigotti  | marcello.rigotti@studenti.unitn.it  |
+| `195275` | Luca Mosetti      | luca.mosetti-1@studenti.unitn.it    |
