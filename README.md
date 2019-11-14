@@ -11,3 +11,6 @@ Progetto del corso di Ingegneria del Software 2, terzo anno della laurea trienna
 | `195275` | Luca Mosetti      | luca.mosetti-1@studenti.unitn.it    |
 | `193868` | Leonardo Berrighi | leonardo.berrighi@studenti.unitn.it |
 | `194224` | Paolo Tasin       | paolo.tasin@studenti.unitn.it       |
+
+## Backlog
+Google Drive Sheet[https://docs.google.com/spreadsheets/d/1BfTntB8q7N87c1wQtOFQ5EyVKVOSM7RGG05DUwB-Bho/edit#gid=2006089950]
