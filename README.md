@@ -13,4 +13,6 @@ Progetto del corso di Ingegneria del Software 2, terzo anno della laurea trienna
 | `194224` | Paolo Tasin       | paolo.tasin@studenti.unitn.it       |
 
 ## Backlog
-[Google Drive Sheet](https://docs.google.com/spreadsheets/d/1BfTntB8q7N87c1wQtOFQ5EyVKVOSM7RGG05DUwB-Bho/edit#gid=2006089950)
+[UserStories Backlog](https://docs.google.com/spreadsheets/d/1BfTntB8q7N87c1wQtOFQ5EyVKVOSM7RGG05DUwB-Bho/edit#gid=2006089950)
+
+[Sprint backlog](https://docs.google.com/spreadsheets/d/1DkC-9ak1bjdn33JkfQ_sShAWxDUfAqH-90QKCEPkCE8/edit#gid=0)
