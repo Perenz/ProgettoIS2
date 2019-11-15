@@ -15,4 +15,4 @@ Progetto del corso di Ingegneria del Software 2, terzo anno della laurea trienna
 ## Backlog
 [UserStories Backlog](https://docs.google.com/spreadsheets/d/1BfTntB8q7N87c1wQtOFQ5EyVKVOSM7RGG05DUwB-Bho/edit#gid=2006089950)
 
-[Sprint backlog](https://docs.google.com/spreadsheets/d/1DkC-9ak1bjdn33JkfQ_sShAWxDUfAqH-90QKCEPkCE8/edit#gid=0)
+[Sprint backlog](https://docs.google.com/spreadsheets/d/1BfTntB8q7N87c1wQtOFQ5EyVKVOSM7RGG05DUwB-Bho/edit#gid=1609316299)
