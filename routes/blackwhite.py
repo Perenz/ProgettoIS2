@@ -1,4 +1,5 @@
 from PIL import Image,ImageFilter
+import sys
 import os
 
 #Open the image file
@@ -14,9 +15,15 @@ out = im.convert('L')
 
 #Split the im.filename (contain name and exstension)
 #Get path+name and extension
-filename, file_exstension = os.path.splitext(im.filename)
+filename, file_format = os.path.splitext(im.filename)
+
+#Add a code to the filename to recognize the modified image
+filename += "bw"
 
 #Save the result with same name as before plus the code BW (blackwhite)
-out.save(filename+"bw"+file_exstension)
-out.show()
+out.save(filename+file_format)
+#out.show()
+
+print({"id": os.path.basename(filename), "format":file_format, "size": out.size})
+sys.stdout.flush()
 
