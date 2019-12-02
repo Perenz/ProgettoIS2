@@ -1,7 +1,9 @@
 const express = require("express");
 //router è il middleware, sistema di "routing"
 const router = express.Router();
+const fs = require("fs");
 
+//Route to apply a filter
 router.get('/:filter', (req, res) => {
     //filter and source are common for every route
     const filter = req.params.filter;
@@ -28,7 +30,7 @@ router.get('/:filter', (req, res) => {
 
         case "binary":
             // Params: source
-            pythonProcess = spawn('python', ["./routes/scripts/transpose.py", source, side]);    
+            pythonProcess = spawn('python', ["./routes/scripts/binary.py", source]);    
             break;
 
         case "rotate":
@@ -58,6 +60,17 @@ router.get('/:filter', (req, res) => {
     pythonProcess.stdout.on('data', (data) => {
         //Return the data as response to the client
         res.end(data.toString());
+    });
+});
+
+//Route to get list of every filter
+router.get('', (req,res) => {
+    //Return the static file ./files/filters
+
+    //Open and read the static file
+    fs.readFile("./files/filters.json", "utf8", (err, data) => {
+        //Reply to the client with the opened data
+        res.end(data)
     });
 });
 
