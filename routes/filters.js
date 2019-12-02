@@ -26,6 +26,11 @@ router.get('/:filter', (req, res) => {
             pythonProcess = spawn('python', ["./routes/scripts/transpose.py", source, side]);    
             break;
 
+        case "binary":
+            // Params: source
+            pythonProcess = spawn('python', ["./routes/scripts/transpose.py", source, side]);    
+            break;
+
         case "rotate":
             // Params: source, degree
             const angle = req.query.angle;

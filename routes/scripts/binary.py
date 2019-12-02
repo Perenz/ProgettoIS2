@@ -22,12 +22,13 @@ except IOError:
     sys.stdout.flush()
     sys.exit()
 
-#Print some img information
-#print(im.format, im.size, im.mode)
 
-
-#L conversion, 8 bit pixels, black and white
+#Set a treshold value which define black and white
+treshold = 100
+#Function eval() applies the funct to each pixel
+#Before, convert to greyscale
 out = im.convert('L')
+out = Image.eval(out, (lambda x: 255 if x>treshold else 0))
 
 
 #Split the im.filename (contain name and exstension)
@@ -35,7 +36,7 @@ out = im.convert('L')
 filename, file_format = os.path.splitext(im.filename)
 
 #Add a code to the filename to recognize the modified image
-filename += "_bw"
+filename += "_bin"
 
 #Save the result with same name as before plus the code BW (blackwhite)
 out.save(filename+file_format)
