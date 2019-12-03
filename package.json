@@ -1,13 +1,10 @@
 {
   "name": "progettois",
   "version": "1.0.0",
-  "description": "",
-  "main": "app2.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node web_server.js"
+    "start": "node bin/www.js"
   },
-  "author": "Paolo Tasin",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
