@@ -3,7 +3,7 @@ const {MongoClient} = require('mongodb');
 const {mongo} = require('./config');
 
 const client = new MongoClient(
-    `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.db}`,
+    mongo,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
