@@ -1,30 +1,23 @@
 const express = require('express');
+const logger = require('morgan');
+const {db} = require('./persistance');
+
+const image = require('./routes/image/index');
+const video = require('./routes/video/index');
+const filters = require('./routes/filters');
+
 const app = express();
 
-///////
-const logger = require('morgan');
-const serveIndex = require('serve-index')
-const path = require('path');
-
-
-
-app.use(logger('tiny'));
+app.locals.db = db;
+app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-//app.use(express.static('public'));
-app.use('/ftp', express.static('public'), serveIndex('public', {'icons': true}));
 
-app.get('/', function(req,res) {
-    return res.send("hello from my app express server!")
-})
+app.use(express.urlencoded({
+    extended: false
+}));
 
-const images = require("./routes/images");
-//"route" che gestiscono le richieste
-app.use("/images", images);
-
-
-const filters = require('./routes/filters');
+app.use('/image', image);
+app.use('/video', video);
 app.use("/filters", filters);
-
 
 module.exports = app;

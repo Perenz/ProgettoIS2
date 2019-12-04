@@ -1,18 +1,19 @@
 {
   "name": "progettois",
   "version": "1.0.0",
-  "description": "",
-  "main": "app2.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node web_server.js"
+    "start": "node bin/www.js"
   },
-  "author": "Paolo Tasin",
   "license": "MIT",
   "dependencies": {
+    "debug": "latest",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongodb": "^3.3.5",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.0.1",
     "serve-index": "^1.9.1"
   }
 }
