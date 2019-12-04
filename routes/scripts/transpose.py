@@ -10,7 +10,7 @@ if len(sys.argv) == 3:
     #Tells the direction of the trasponse
     side = sys.argv[2]
 else:
-    print({"status":"ERROR", "msg":"Wrong number of parameters"})
+    print({"status":"ERROR", "msg":"Wrong number of parameters", "given":len(sys.argv)})
     sys.stdout.flush()
     sys.exit()
 

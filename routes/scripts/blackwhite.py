@@ -7,19 +7,19 @@ if len(sys.argv) == 2:
     #Open the image file
     im_name = sys.argv[1]
 else:
-    print({"status":"ERROR", "msg":"Wrong number of parameters"})
-    sys.stdout.flush()
+    sys.stderr.write("Wrong number of parameters")
+    #sys.stderr.flush()
     sys.exit()
 
 #accept only jpg images TODO
 try:
     #Try open the image which name was passed as param
-    im = Image.open("./routes/images/"+im_name+".jpg")
+    im = Image.open(im_name)
 except IOError:
     #If the image does not exist
     #Abort and tell the js caller
-    print({"status":"ERROR", "msg":"source name specified does not exist"})
-    sys.stdout.flush()
+    sys.stderr.write("source name specified does not exist")
+    #sys.stderr.flush()
     sys.exit()
 
 #Print some img information
@@ -30,18 +30,16 @@ except IOError:
 out = im.convert('L')
 
 
-#Split the im.filename (contain name and exstension)
-#Get path+name and extension
-filename, file_format = os.path.splitext(im.filename)
-
 #Add a code to the filename to recognize the modified image
-filename += "_bw"
+im_name += "_bw"
 
 #Save the result with same name as before plus the code BW (blackwhite)
-out.save(filename+file_format)
+im_format = im.format
+
+out.save(im_name+'.'+im_format)
 #out.show()
 
 #Send to JS caller a message that means the operation ended well
-print({"status":"SUCCESS", "id": os.path.basename(filename), "format":file_format, "size": out.size})
+print(im_name+'.'+im_format, end='')
 sys.stdout.flush()
 
