@@ -49,27 +49,38 @@ function runPyScript(req, res, source, paramList) {
         })
 }
 
-exports.binary = function (req, res) {
+exports.rotate = function (req, res) {
     const source = req.query.source;
-    const threshold = req.query.threshold;
+    const angle = req.query.angle;
 
-    runPyScript(req, res, source, ["./scripts/binary.py", source, threshold])
+    runPyScript(req, res, source, ["./scripts/rotate.py", source, angle])
 };
-
-exports.greyscale = function (req, res) {
+exports.resize = function (req, res) {
     const source = req.query.source;
+    const size = req.query.size;
 
-    runPyScript(req, res, source, ["./scripts/greyscale.py", source])
+    runPyScript(req, res, source, ["./scripts/resize.py", source, size])
 };
-
-exports.invert = function (req, res) {
+exports.transpose = function (req, res) {
     const source = req.query.source;
+    const side = req.query.side;
 
-    runPyScript(req, res, source, ["./scripts/invert.py", source])
+    runPyScript(req, res, source, ["./scripts/transpose.py", source, side])
 };
+exports.crop = function (req, res) {
+    const source = req.query.source;
+    const box = req.query.box;
 
+    runPyScript(req, res, source, ["./scripts/crop.py", source, box])
+};
+exports.transform = function (req, res) {
+    const source = req.query.source;
+    const size = req.query.size;
+    const data = req.query.data;
 
-exports.filters = function (req, res) {
+    runPyScript(req, res, source, ["./scripts/transform.py", source, size, data])
+};
+exports.transformations = function (req, res) {
     res
         .status(200)
         .json({
