@@ -62,9 +62,10 @@ Returns a resized copy of an image. The size argument gives the requested size i
 */
 exports.resize = function (req, res) {
     const source = req.query.source;
-    const size = req.query.size;
+    const width = req.query.width;
+    const height = req.query.height;
 
-    runPyScript(req, res, source, ["./scripts/resize.py", source, size])
+    runPyScript(req, res, source, ["./scripts/resize.py", source, width, height])
 };
 
 exports.transpose = function (req, res) {

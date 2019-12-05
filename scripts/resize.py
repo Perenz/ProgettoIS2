@@ -3,7 +3,8 @@ import sys
 import os
 
 name = sys.argv[1]
-size = int(sys.argv[2])
+width = int(sys.argv[2])
+height = int(sys.argv[3])
 
 im = Image.open(name)
-im.resize(size).save(name, format=im.format)
+im.resize((width, height)).save(name, format=im.format)
