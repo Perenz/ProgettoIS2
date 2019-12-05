@@ -5,7 +5,7 @@ const {db} = require('./persistance');
 const image = require('./routes/image/index');
 const video = require('./routes/video/index');
 const filters = require('./routes/image-filters');
-const transformation = require('./routes/image-transformation');
+const transformations = require('./routes/image-transformations');
 
 const app = express();
 
@@ -20,6 +20,6 @@ app.use(express.urlencoded({
 app.use('/image', image);
 app.use('/video', video);
 app.use("/image-filters", filters);
-app.use("/image-transformation", transformation);
+app.use("/image-transformations", transformations);
 
 module.exports = app;
