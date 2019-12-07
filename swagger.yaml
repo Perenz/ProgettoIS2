@@ -61,11 +61,7 @@ paths:
         201:
           description: Successful Response
           schema:
-            type: object
-            properties:
-              id:
-                type: string
-                example: TODO
+            $ref: '#/definitions/ImVidResponse'
                 
   /videos:
     x-summary: Videos collection
@@ -92,11 +88,7 @@ paths:
         201:
           description: Successful Response
           schema:
-            type: object
-            properties:
-              id:
-                type: string
-                example: TODO
+            $ref: '#/definitions/ImVidResponse'
                 
   /image-filters:
     x-summary: Image filters
@@ -123,11 +115,89 @@ paths:
                       type: string
                     description:
                       type: string
+            example:
+              avaliable:
+                - name: Grayscale
+                  parameters: "source:imgID"
+                  description: Convert an image into greyscale in 8 bits
+                - name: Binary
+                  parameters: "source:imgID treshold:int"
+                  description: >-
+                    Every pixel of the image is made either white or black
+                    It dependes on the treshold value
 
-  #/image-filters/greyscale
+  /image-filters/grayscale:
+    x-summary: Filter grayscale
+    post: 
+      summary: Apply the grayscale filter to an Image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
   
-  
+  /image-filters/binary:
+    x-summary: Filter binary
+    post: 
+      summary: Apply the binary filter to an image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: treshold
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+ 
+  /image-filters/invert:
+    x-summary: Filter binary
+    post: 
+      summary: Apply the invert filter to an image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: treshold
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse' 
 definitions:
+  ImVidResponse:
+    title: Response
+    type: object
+    properties:
+      id:
+        type: string
+        example: 5deb644c1bcc2a33d4e5df36
   Question:
     title: Question
     type: object
