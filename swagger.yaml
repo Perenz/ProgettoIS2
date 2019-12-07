@@ -1,0 +1,248 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: "ProgettoIS2"
+  description: It is an API that allows the user to upload images and videos and to do some processing on them.
+  license:
+    name: MIT
+host: blooming-stream-08914.herokuapp.com
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /images:
+    x-summary: Images collection
+    get:
+      summary: Return an image
+      consumes:
+        - application/json
+      produces:
+        - image/jpeg
+        - image/png
+      parameters:
+        - in: body
+          name: id
+          required: true
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+      responses:
+        200:
+          description: Image in the format it is was uploaded
+          schema:
+            type: string
+            format: binary
+          
+          
+    post:
+      summary: Upload a new image
+      consumes:
+        - image/jpeg
+        - image/png
+      produces: 
+        - application/json
+      parameters:
+        - in: body
+          name: file
+          required: true
+          schema:
+            type: object
+            properties:
+              file:
+                type: string
+                format: binary
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+                
+  /videos:
+    x-summary: Videos collection
+    get:
+      summary: Return a video
+      consumes:
+        - application/json
+      produces:
+        - multipart/form-data
+      responses:
+        200:
+          description: Video in the format it is was uploaded
+          schema:
+            type: string
+            format: binary
+            
+    post:
+      summary: Upload a new video
+      consumes:
+        - multipart/form-data
+      produces: 
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+                
+  /image-filters:
+    x-summary: Image filters
+    get:
+      summary: List the available image filters
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: object
+            properties:
+              available:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    parameters: 
+                      type: string
+                    description:
+                      type: string
+            example:
+              avaliable:
+                - name: Grayscale
+                  parameters: "source:imgID"
+                  description: Convert an image into greyscale in 8 bits
+                - name: Binary
+                  parameters: "source:imgID treshold:int"
+                  description: >-
+                    Every pixel of the image is made either white or black
+                    It dependes on the treshold value
+
+  /image-filters/grayscale:
+    x-summary: Filter grayscale
+    post: 
+      summary: Apply the grayscale filter to an Image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+  
+  /image-filters/binary:
+    x-summary: Filter binary
+    post: 
+      summary: Apply the binary filter to an image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: treshold
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+ 
+  /image-filters/invert:
+    x-summary: Filter binary
+    post: 
+      summary: Apply the invert filter to an image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: treshold
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse' 
+definitions:
+  ImVidResponse:
+    title: Response
+    type: object
+    properties:
+      id:
+        type: string
+        example: 5deb644c1bcc2a33d4e5df36
+  Question:
+    title: Question
+    type: object
+    properties:
+      question:
+        type: string
+      published_at:
+        type: string
+      choices:
+        type: array
+        items:
+          $ref: '#/definitions/Choice'
+    required:
+      - question
+      - published_at
+      - choices
+  Choice:
+    title: Choice
+    type: object
+    properties:
+      votes:
+        type: integer
+        format: int32
+      choice:
+        type: string
+    required:
+      - votes
+      - choice
+  QuestionRequest:
+    title: Question Request
+    type: object
+    properties:
+      question:
+        type: string
+      choices:
+        type: array
+        items:
+          type: string
+    required:
+      - question
+      - choices
+    example:
+      question: Favourite programming language?
+      choices:
+        - Swift
+        - Python
+        - Objective-C
+        - Ruby
