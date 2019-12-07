@@ -55,22 +55,26 @@ exports.rotate = function (req, res) {
 
     runPyScript(req, res, source, ["./scripts/rotate.py", source, angle])
 };
+
 /*
 Image.resize(size, filter)
 Returns a resized copy of an image. The size argument gives the requested size in pixels, as a 2-tuple: (width, height).
 */
 exports.resize = function (req, res) {
     const source = req.query.source;
-    const size = req.query.size;
+    const width = req.query.width;
+    const height = req.query.height;
 
-    runPyScript(req, res, source, ["./scripts/resize.py", source, size])
+    runPyScript(req, res, source, ["./scripts/resize.py", source, width, height])
 };
+
 exports.transpose = function (req, res) {
     const source = req.query.source;
     const side = req.query.side;
 
     runPyScript(req, res, source, ["./scripts/transpose.py", source, side])
 };
+
 /*
 Image.crop(box)
 Returns a copy of a rectangular region from the current image. The box is a 4-tuple defining the left, upper, right, and lower pixel coordinate.
@@ -81,6 +85,7 @@ exports.crop = function (req, res) {
 
     runPyScript(req, res, source, ["./scripts/crop.py", source, box])
 };
+
 /*Image.transform(size, PERSPECTIVE, data, filter)
 Applies a perspective transform to the image, and places the result in a new image with the given size.
 
@@ -95,7 +100,8 @@ exports.transform = function (req, res) {
 
     runPyScript(req, res, source, ["./scripts/transform.py", source, size, data])
 };
-exports.transformation = function (req, res) {
+
+exports.transformations = function (req, res) {
     res
         .status(200)
         .json({
