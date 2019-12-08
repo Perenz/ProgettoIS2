@@ -8,32 +8,37 @@ function runPyScript(req, res, source, paramList) {
     });
 
     bucket
-        .openDownloadStream(new ObjectID(source))
+        .openDownloadStream(new ObjectID(source)) //Error in source name is not caught with the following callback
         .pipe(fs.createWriteStream(source))
         .on('finish', () => {
             spawn('python', paramList)
-                .on('close', () => {
-                    fs
-                        .createReadStream(source)
-                        .pipe(bucket.openUploadStream(source))
-                        .on('error', (error) => {
-                            res
-                                .status(500)
-                                .json({error: 'unable to load image'});
-                        })
-                        .on('finish', (doc) => {
-                            res
-                                .status(200)
-                                .json({id: doc._id});
-                        })
-                        .on('finish', () => {
-                            fs
-                                .promises
-                                .unlink(source)
-                                .catch((error) => {
-                                    console.log(error);
-                                })
-                        });
+                .on('close', (code) => {
+                    if(code==0){
+                        fs
+                            .createReadStream(source)
+                            .pipe(bucket.openUploadStream(source))
+                            .on('error', (error) => {
+                                res
+                                    .status(500)
+                                    .json({error: 'unable to load image'});
+                            })
+                            .on('finish', (doc) => {
+                                res
+                                    .status(200)
+                                    .json({id: doc._id});
+                            })
+                            .on('finish', () => {
+                                fs
+                                    .promises
+                                    .unlink(source)
+                                    .catch((error) => {
+                                        console.log(error);
+                                    })                               
+                            });
+                        }else{
+                            res.status(500)
+                                .json({error: 'Script ended with code '+ code});
+                        }
                 })
                 .on('error', (error) => {
                     res
@@ -47,7 +52,7 @@ function runPyScript(req, res, source, paramList) {
                 .status(500)
                 .json({error: 'server error'});
         })
-}
+};
 
 exports.binary = function (req, res) {
     const source = req.query.source;
