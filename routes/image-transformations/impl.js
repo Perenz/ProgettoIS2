@@ -81,9 +81,12 @@ Returns a copy of a rectangular region from the current image. The box is a 4-tu
 */
 exports.crop = function (req, res) {
     const source = req.query.source;
-    const box = req.query.box;
+    const left = req.query.left;
+    const upper = req.query.upper;
+    const right = req.query.right;
+    const lower = req.query.lower;
 
-    runPyScript(req, res, source, ["./scripts/crop.py", source, box])
+    runPyScript(req, res, source, ["./scripts/crop.py", source, left, upper, right, lower])
 };
 
 /*Image.transform(size, PERSPECTIVE, data, filter)
@@ -95,10 +98,18 @@ This function can be used to change the 2D perspective of the original image.
 */
 exports.transform = function (req, res) {
     const source = req.query.source;
-    const size = req.query.size;
-    const data = req.query.data;
+    const width = req.query.width;
+    const height = req.query.height;
+    const a = req.query.a;
+    const b = req.query.b;
+    const c = req.query.c;
+    const d = req.query.d;
+    const e = req.query.e;
+    const f = req.query.f;
+    const g = req.query.g;
+    const h = req.query.h;
 
-    runPyScript(req, res, source, ["./scripts/transform.py", source, size, data])
+    runPyScript(req, res, source, ["./scripts/transform.py", source, width, height, a, b, c, d, e, f, g, h])
 };
 
 exports.transformations = function (req, res) {
