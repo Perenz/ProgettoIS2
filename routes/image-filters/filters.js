@@ -82,6 +82,11 @@ exports.transpose = function (req, res) {
     runPyScript(req, res, source, ["./scripts/transpose.py", source, side])
 };
 
+exports.error404 = function(req,res){
+    res.status(404)
+        .send('Filter not found');
+}
+
 exports.filters = function (req, res) {
     res
         .status(200)
@@ -96,6 +101,11 @@ exports.filters = function (req, res) {
                     "name": "transpose",
                     "schema": "source:imgID, side:x|y|xy",
                     "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
+                },
+                {
+                    "name": "invert",
+                    "schema": "source:imgID",
+                    "description": "Invert the colors of an image"
                 }
             ]
         });

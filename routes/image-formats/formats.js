@@ -62,6 +62,11 @@ exports.jpeg = function (req, res){
     runPyScript(req, res, source, ["./scripts/jpeg.py", source])
 };
 
+exports.error404 = function(req,res){
+    res.status(404)
+        .send('Format not found');
+}
+
 exports.formats = function (req, res){
     res
         .status(200)
