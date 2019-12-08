@@ -12,29 +12,33 @@ function runPyScript(req, res, source, paramList) {
         .pipe(fs.createWriteStream(source))
         .on('finish', () => {
             spawn('python', paramList)
-                .on('close', () => {
-                    fs
-                        .createReadStream(source)
-                        .pipe(bucket.openUploadStream(source))
-                        .on('error', (error) => {
-                            res
-                                .status(500)
-                                .json({error: 'unable to load image'});
-                        })
-                        .on('finish', (doc) => {
-                            res
-                                .status(200)
-                                .json({id: doc._id});
-                        })
-                        .on('finish', () => {
-                            fs
-                                .promises
-                                .unlink(source)
-                                .catch((error) => {
-                                    console.log(error);
-                                })
-                                
-                        });
+                .on('close', (code) => {
+                    if(code==0){
+                        fs
+                            .createReadStream(source)
+                            .pipe(bucket.openUploadStream(source))
+                            .on('error', (error) => {
+                                res
+                                    .status(500)
+                                    .json({error: 'unable to load image'});
+                            })
+                            .on('finish', (doc) => {
+                                res
+                                    .status(200)
+                                    .json({id: doc._id});
+                            })
+                            .on('finish', () => {
+                                fs
+                                    .promises
+                                    .unlink(source)
+                                    .catch((error) => {
+                                        console.log(error);
+                                    })                               
+                            });
+                        }else{
+                            res.status(500)
+                                .json({error: 'Script ended with code '+ code});
+                        }
                 })
                 .on('error', (error) => {
                     res
@@ -64,7 +68,7 @@ exports.jpeg = function (req, res){
 
 exports.error404 = function(req,res){
     res.status(404)
-        .send('Format not found');
+        .json({error: 'Format not found'});
 }
 
 exports.formats = function (req, res){
