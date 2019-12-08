@@ -60,6 +60,7 @@ exports.cut = function (req, res) {
 exports.speedup = function (req, res) {
     const source = req.query.source;
     const factor = req.query.factor;
+   
     runPyScript(req, res, source, ["./scripts/v_speedup.py", source, factor])
 };
 
@@ -68,8 +69,6 @@ exports.resize = function (req, res) {
     const pixel_x = req.query.pixel_x;
     const pixel_y = req.query.pixel_y;
 
-
-    const pixel_x = req.query.pixel_x;
     runPyScript(req, res, source, ["./scripts/v_resize.py", source, pixel_y])
 };
 /////
@@ -80,18 +79,18 @@ exports.filters = function (req, res) {
             available: [
                 {
                     "name": "cut",
-                    "schema": "source:imgID",
-                    "description": "Cut a video"
+                    "schema": "source:videoID, start_time, end_time",
+                    "description": "Cut a video from start_time to end_time"
                 },
                 {
                     "name": "speedup",
-                    "schema": "source:imgID, side:x|y|xy",
-                    "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
+                    "schema": "source:videoID, factor",
+                    "description": "Speed up a video at factor time"
                 },
                 {
                     "name": "resize",
-                    "schema": "source:imgID, side:x|y|xy",
-                    "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
+                    "schema": "source:videoID, pixel_x, pixel_y",
+                    "description": "Resize a video with respect to parameters pixel_x (width) and pixel_y (height)"
                 }
             ]
         });
