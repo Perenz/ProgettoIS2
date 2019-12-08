@@ -11,6 +11,7 @@ tags:
 - name: "Images"
 - name: "Videos"
 - name: "Images Filters"
+- name: "Images Formats"
 schemes:
 - http
 consumes:
@@ -35,9 +36,9 @@ paths:
           type: string
       responses:
         200:
-          description: Successful response
+          description: Successful Response - The image is returned
           schema:
-            type: string
+            type: file
             format: binary
           
           
@@ -46,20 +47,18 @@ paths:
         - "Images"
       summary: Upload a new image
       consumes:
-        - image/jpeg
-        - image/png
+        - multipart/form-data
       produces: 
         - application/json
       parameters:
-        - in: body
+        - in: formData
           name: file
           required: true
-          schema:
-            $ref: '#/definitions/ImVidUpload'
-            
+          type: file
+          description: The image to upload, jpg or png.
       responses:
-        201:
-          description: Successful Response
+        200:
+          description: Successful Response - The ID of the uploaded image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
                 
@@ -79,7 +78,7 @@ paths:
           type: string
       responses:
         200:
-          description:  Successfl response
+          description: Successful Response - The video is returned
           schema:
             type: string
             format: binary
@@ -93,15 +92,14 @@ paths:
       produces: 
         - application/json
       parameters:
-        - in: body
-          name: files
+        - in: formData
+          name: file
           required: true
-          schema:
-            $ref: '#/definitions/ImVidUpload'
-      
+          type: file
+          description: The video to upload
       responses:
-        201:
-          description: Successful Response
+        200:
+          description: Successful Response - The ID of the uploaded video is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
                 
@@ -116,26 +114,9 @@ paths:
         - application/json
       responses:
         200:
-          description: Successful Response
+          description: Successful Response - List all the available filters
           schema:
             $ref: '#/definitions/FiltersList'
-          
-            type: object
-            properties:
-              available:
-                type: array
-                items:
-                  $ref: '#/definitions/Filter'
-            example:
-              avaliable:
-                - name: Grayscale
-                  parameters: "source:imgID"
-                  description: Convert an image into greyscale in 8 bits
-                - name: Binary
-                  parameters: "source:imgID treshold:int"
-                  description: >-
-                    Every pixel of the image is made either white or black
-                    It dependes on the treshold value
 
   /image-filters/grayscale:
     post: 
@@ -153,7 +134,7 @@ paths:
         - application/json
       responses:
         201:
-          description: Successful Response
+          description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
   
@@ -177,7 +158,7 @@ paths:
         - application/json
       responses:
         201:
-          description: Successful Response
+          description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
  
@@ -197,9 +178,65 @@ paths:
         - application/json
       responses:
         201:
-          description: Successful Response
+          description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse' 
+            
+  /image-formats:
+    get:
+      tags:
+        - "Images Formats"
+      summary: List the available image formats
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - List all the available formats
+          schema:
+            $ref: '#/definitions/FormatsList'
+            
+  /image-formats/png:
+    post:
+      tags:
+        - "Images Formats"
+      summary: Convert the image format to PNG
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - The ID of the new modified image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+            
+  /image-formats/jpeg:
+    post:
+      tags:
+        - "Images Formats"
+      summary: Convert the image format to JPEG
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - The ID of the new modified image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+
 definitions:
   ImVidUpload:
     title: ImVidUpload
@@ -234,7 +271,6 @@ definitions:
           description: >-
             Every pixel of the image is made either white or black
             It dependes on the treshold value
-    
   Filter:
     title: Filter
     type: object
@@ -249,23 +285,34 @@ definitions:
       - name
       - parameters
       - description
-  QuestionRequest:
-    title: Question Request
+      
+  FormatsList:
+    title: FormatsList
     type: object
     properties:
-      question:
-        type: string
-      choices:
+      avaliable:
         type: array
         items:
-          type: string
-    required:
-      - question
-      - choices
+          $ref: '#/definitions/Format'
     example:
-      question: Favourite programming language?
-      choices:
-        - Swift
-        - Python
-        - Objective-C
-        - Ruby
+      avaliable:
+        - name: png
+          parameters: "source:imgID"
+          description: Convert the format of the image to png
+        - name: jpeg
+          parameters: "source:imgID"
+          description: Convert the format of the image to jpeg
+  Format:
+    title: Format
+    type: object
+    properties:
+      name:
+        type: string
+      parameters:
+        type: string
+      description:
+        type: string
+    required:
+      - name
+      - parameters
+      - description
