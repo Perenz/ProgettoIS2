@@ -18,7 +18,7 @@ consumes:
 - application/json
 produces:
 - application/json
-paths:
+paths:  
   /images:
     get:
       tags:
@@ -40,8 +40,7 @@ paths:
           schema:
             type: file
             format: binary
-          
-          
+                
     post:
       tags:
         - "Images"
@@ -102,7 +101,195 @@ paths:
           description: Successful Response - The ID of the uploaded video is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
-                
+///////////////////////////////////////////////////////////////////////////
+  /images-transformations:   
+    get:
+      tags:
+        - "Images Transformations"
+      summary: List the available image transformations
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - List all the available transformations
+          schema:
+            $ref: '#/definitions/TransformationList'
+
+  /image-transformations/rotate:
+    post: 
+      tags:
+        - "Images Filters"
+      summary: Apply the rotation to an Image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: angle
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response - The ID of the new rotated image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+
+  /image-transformations/resize:
+    post: 
+      tags:
+        - "Images Filters"
+      summary: Returns a resized copy of an image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: width
+          type: integer
+          required: true
+        - in: query
+          name: height
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response - The ID of the new resized image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+  
+  /image-transformations/transpose:
+    post: 
+      tags:
+        - "Images Filters"
+      summary: Apply the transpose to an Image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: side
+          type: string // x | y |xy
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response - The ID of the new transposed image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+
+  /image-transformations/crop:
+    post: 
+      tags:
+        - "Images Filters"
+      summary: Returns a copy of a rectangular region from the current image
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: left
+          type: integer
+          required: true
+        - in: query
+          name: upper
+          type: integer
+          required: true
+        - in: query
+          name: right
+          type: integer
+          required: true
+        - in: query
+          name: lower
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response - The ID of the new cropped image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+
+  /image-transformations/transform:
+    post: 
+      tags:
+        - "Images Filters"
+      summary: Applies a perspective transform to the image, and places the result in a new image with the given size
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: width
+          type: integer
+          required: true
+        - in: query
+          name: height
+          type: integer
+          required: true
+        - in: query
+          name: a
+          type: integer
+          required: true
+        - in: query
+          name: b
+          type: integer
+          required: true
+        - in: query
+          name: c
+          type: integer
+          required: true
+        - in: query
+          name: d
+          type: integer
+          required: true
+        - in: query
+          name: e
+          type: integer
+          required: true
+        - in: query
+          name: f
+          type: integer
+          required: true
+        - in: query
+          name: g
+          type: integer
+          required: true
+        - in: query
+          name: h
+          type: integer
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        201:
+          description: Successful Response - The ID of the new transformed image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+
+///////////////////////////////////////////////////////////////////////////
   /image-filters:
     get:
       tags:
