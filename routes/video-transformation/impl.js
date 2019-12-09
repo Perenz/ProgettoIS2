@@ -72,24 +72,24 @@ exports.resize = function (req, res) {
     runPyScript(req, res, source, ["./scripts/v_resize.py", source, pixel_y])
 };
 /////
-exports.filters = function (req, res) {
+exports.video_transformation = function (req, res) {
     res
         .status(200)
         .json({
             available: [
                 {
                     "name": "cut",
-                    "schema": "source:videoID, start_time, end_time",
+                    "schema": "source:videoID, (double)start_time, (double)end_time",
                     "description": "Cut a video from start_time to end_time"
                 },
                 {
                     "name": "speedup",
-                    "schema": "source:videoID, factor",
+                    "schema": "source:videoID, (double)factor",
                     "description": "Speed up a video at factor time"
                 },
                 {
                     "name": "resize",
-                    "schema": "source:videoID, pixel_x, pixel_y",
+                    "schema": "source:videoID, (int)pixel_x, (int)pixel_y",
                     "description": "Resize a video with respect to parameters pixel_x (width) and pixel_y (height)"
                 }
             ]
