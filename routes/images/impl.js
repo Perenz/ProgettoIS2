@@ -1,8 +1,8 @@
 const upload = require('../../middlewares/storage');
 
 exports.bucket = function (req, res, next) {
-    req.query.bucketName = 'videos';
+    req.query.bucketName = 'images';
     next();
 };
 
-exports.upload = upload.singleMulter('videos', ['video/mp4']);
+exports.upload = upload.arrayMulter('images', ['image/jpeg', 'image/png']);
