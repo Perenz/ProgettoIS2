@@ -15,8 +15,6 @@ tags:
 - name: "Images Transformations"
 schemes:
 - http
-consumes:
-- application/json
 produces:
 - application/json
 paths:  
@@ -25,8 +23,6 @@ paths:
       tags:
         - "Images"
       summary: Return an image
-      consumes:
-        - application/json
       produces:
         - image/jpeg
         - image/png
@@ -67,8 +63,6 @@ paths:
       tags:
         - "Videos"
       summary: Return a video
-      consumes:
-        - application/json
       produces:
         - multipart/form-data
       parameters:
@@ -108,8 +102,6 @@ paths:
       tags:
         - "Images Transformations"
       summary: List the available image transformations
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -132,8 +124,6 @@ paths:
           name: angle
           type: integer
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -160,8 +150,6 @@ paths:
           name: height
           type: integer
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -188,8 +176,6 @@ paths:
             - x
             - y
             - xy
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -224,8 +210,6 @@ paths:
           name: lower
           type: integer
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -284,8 +268,6 @@ paths:
           name: h
           type: integer
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -300,8 +282,6 @@ paths:
       tags:
         - "Images Filters"
       summary: List the available image filters
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -320,8 +300,6 @@ paths:
           name: source
           type: string
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -346,8 +324,6 @@ paths:
           minimum: 0
           maximum: 255
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -366,8 +342,6 @@ paths:
           name: source
           type: string
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -381,8 +355,6 @@ paths:
       tags:
         - "Images Formats"
       summary: List the available image formats
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -401,8 +373,6 @@ paths:
           name: source
           type: string
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
@@ -421,8 +391,6 @@ paths:
           name: source
           type: string
           required: true
-      consumes:
-        - application/json
       produces:
         - application/json
       responses:
