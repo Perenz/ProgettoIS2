@@ -1,5 +1,5 @@
-const spawn = require("child_process").spawn;
 const fs = require("fs");
+const spawn = require("child_process").spawn;
 const {GridFSBucket, ObjectID} = require('mongodb');
 
 function runPyScript(req, res, source, paramList) {
@@ -8,7 +8,7 @@ function runPyScript(req, res, source, paramList) {
     });
 
     bucket
-        .openDownloadStream(new ObjectID(source)) //Error in source name is not caught with the following callback
+        .openDownloadStream(new ObjectID(source))
         .pipe(fs.createWriteStream(source))
         .on('finish', () => {
             spawn('python', paramList)
@@ -52,52 +52,39 @@ function runPyScript(req, res, source, paramList) {
                 .status(500)
                 .json({error: 'server error'});
         })
-};
+}
 
-exports.binary = function (req, res) {
-    const source = req.query.source;
-    const threshold = req.query.threshold;
-
-    runPyScript(req, res, source, ["./scripts/binary.py", source, threshold])
-};
-
-exports.greyscale = function (req, res) {
+exports.png = function (req, res){
     const source = req.query.source;
 
-    runPyScript(req, res, source, ["./scripts/greyscale.py", source])
+    runPyScript(req, res, source, ["./scripts/png.py", source])
 };
 
-exports.invert = function (req, res) {
+exports.jpeg = function (req, res){
     const source = req.query.source;
 
-    runPyScript(req, res, source, ["./scripts/invert.py", source])
+    runPyScript(req, res, source, ["./scripts/jpeg.py", source])
 };
-
 
 exports.error404 = function(req,res){
     res.status(404)
-        .send('Filter not found');
+        .json({error: 'Format not found'});
 }
 
-exports.filters = function (req, res) {
+exports.formats = function (req, res){
     res
         .status(200)
         .json({
             available: [
                 {
-                    "name": "greyscale",
+                    "name": "png",
                     "schema": "source:imgID",
-                    "description": "Convert an image into greyscale in 8 bits"
+                    "description": "Convert the format of the image to png"
                 },
                 {
-                    "name": "transpose",
-                    "schema": "source:imgID, side:x|y|xy",
-                    "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
-                },
-                {
-                    "name": "invert",
+                    "name": "jpeg",
                     "schema": "source:imgID",
-                    "description": "Invert the colors of an image"
+                    "description": "Convert the format of the image to jpeg"
                 }
             ]
         });

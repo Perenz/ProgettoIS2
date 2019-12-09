@@ -7,6 +7,11 @@ info:
     name: MIT
 host: blooming-stream-08914.herokuapp.com
 basePath: /
+tags:
+- name: "Images"
+- name: "Videos"
+- name: "Images Filters"
+- name: "Images Formats"
 schemes:
 - http
 consumes:
@@ -15,8 +20,9 @@ produces:
 - application/json
 paths:
   /images:
-    x-summary: Images collection
     get:
+      tags:
+        - "Images"
       summary: Return an image
       consumes:
         - application/json
@@ -24,75 +30,83 @@ paths:
         - image/jpeg
         - image/png
       parameters:
-        - in: body
+        - in: query
           name: id
           required: true
-          schema:
-            type: object
-            properties:
-              id:
-                type: string
+          type: string
       responses:
         200:
-          description: Image in the format it is was uploaded
+          description: Successful Response - The image is returned
           schema:
-            type: string
+            type: file
             format: binary
           
           
     post:
+      tags:
+        - "Images"
       summary: Upload a new image
       consumes:
-        - image/jpeg
-        - image/png
+        - multipart/form-data
       produces: 
         - application/json
       parameters:
-        - in: body
+        - in: formData
           name: file
           required: true
-          schema:
-            type: object
-            properties:
-              file:
-                type: string
-                format: binary
+          type: file
+          description: The image to upload, jpg or png.
       responses:
-        201:
-          description: Successful Response
+        200:
+          description: Successful Response - The ID of the uploaded image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
                 
   /videos:
-    x-summary: Videos collection
     get:
+      tags:
+        - "Videos"
       summary: Return a video
       consumes:
         - application/json
       produces:
         - multipart/form-data
+      parameters:
+        - in: query
+          name: id
+          required: true
+          type: string
       responses:
         200:
-          description: Video in the format it is was uploaded
+          description: Successful Response - The video is returned
           schema:
             type: string
             format: binary
             
     post:
+      tags:
+        - "Videos"
       summary: Upload a new video
       consumes:
         - multipart/form-data
       produces: 
         - application/json
+      parameters:
+        - in: formData
+          name: file
+          required: true
+          type: file
+          description: The video to upload
       responses:
-        201:
-          description: Successful Response
+        200:
+          description: Successful Response - The ID of the uploaded video is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
                 
   /image-filters:
-    x-summary: Image filters
     get:
+      tags:
+        - "Images Filters"
       summary: List the available image filters
       consumes:
         - application/json
@@ -100,35 +114,14 @@ paths:
         - application/json
       responses:
         200:
-          description: Successful Response
+          description: Successful Response - List all the available filters
           schema:
-            type: object
-            properties:
-              available:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    parameters: 
-                      type: string
-                    description:
-                      type: string
-            example:
-              avaliable:
-                - name: Grayscale
-                  parameters: "source:imgID"
-                  description: Convert an image into greyscale in 8 bits
-                - name: Binary
-                  parameters: "source:imgID treshold:int"
-                  description: >-
-                    Every pixel of the image is made either white or black
-                    It dependes on the treshold value
+            $ref: '#/definitions/FiltersList'
 
   /image-filters/grayscale:
-    x-summary: Filter grayscale
     post: 
+      tags:
+        - "Images Filters"
       summary: Apply the grayscale filter to an Image
       parameters:
         - in: query
@@ -141,13 +134,14 @@ paths:
         - application/json
       responses:
         201:
-          description: Successful Response
+          description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
   
   /image-filters/binary:
-    x-summary: Filter binary
     post: 
+      tags:
+        - "Images Filters"
       summary: Apply the binary filter to an image
       parameters:
         - in: query
@@ -164,22 +158,19 @@ paths:
         - application/json
       responses:
         201:
-          description: Successful Response
+          description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
  
   /image-filters/invert:
-    x-summary: Filter binary
     post: 
+      tags:
+        - "Images Filters"
       summary: Apply the invert filter to an image
       parameters:
         - in: query
           name: source
           type: string
-          required: true
-        - in: query
-          name: treshold
-          type: integer
           required: true
       consumes:
         - application/json
@@ -187,10 +178,74 @@ paths:
         - application/json
       responses:
         201:
-          description: Successful Response
+          description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse' 
+            
+  /image-formats:
+    get:
+      tags:
+        - "Images Formats"
+      summary: List the available image formats
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - List all the available formats
+          schema:
+            $ref: '#/definitions/FormatsList'
+            
+  /image-formats/png:
+    post:
+      tags:
+        - "Images Formats"
+      summary: Convert the image format to PNG
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - The ID of the new modified image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+            
+  /image-formats/jpeg:
+    post:
+      tags:
+        - "Images Formats"
+      summary: Convert the image format to JPEG
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response - The ID of the new modified image is returned
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+
 definitions:
+  ImVidUpload:
+    title: ImVidUpload
+    type: object
+    properties:
+      file:
+        type: string
+        format: binary
+
   ImVidResponse:
     title: Response
     type: object
@@ -198,51 +253,66 @@ definitions:
       id:
         type: string
         example: 5deb644c1bcc2a33d4e5df36
-  Question:
-    title: Question
+  FiltersList:
+    title: FiltersList
     type: object
     properties:
-      question:
-        type: string
-      published_at:
-        type: string
-      choices:
+      available:
         type: array
         items:
-          $ref: '#/definitions/Choice'
-    required:
-      - question
-      - published_at
-      - choices
-  Choice:
-    title: Choice
-    type: object
-    properties:
-      votes:
-        type: integer
-        format: int32
-      choice:
-        type: string
-    required:
-      - votes
-      - choice
-  QuestionRequest:
-    title: Question Request
-    type: object
-    properties:
-      question:
-        type: string
-      choices:
-        type: array
-        items:
-          type: string
-    required:
-      - question
-      - choices
+          $ref: '#/definitions/Filter'
     example:
-      question: Favourite programming language?
-      choices:
-        - Swift
-        - Python
-        - Objective-C
-        - Ruby
+      avaliable:
+        - name: Grayscale
+          parameters: "source:imgID"
+          description: Convert an image into greyscale in 8 bits
+        - name: Binary
+          parameters: "source:imgID treshold:int"
+          description: >-
+            Every pixel of the image is made either white or black
+            It dependes on the treshold value
+  Filter:
+    title: Filter
+    type: object
+    properties:
+      name:
+        type: string
+      parameters:
+        type: string
+      description:
+        type: string
+    required:
+      - name
+      - parameters
+      - description
+      
+  FormatsList:
+    title: FormatsList
+    type: object
+    properties:
+      avaliable:
+        type: array
+        items:
+          $ref: '#/definitions/Format'
+    example:
+      avaliable:
+        - name: png
+          parameters: "source:imgID"
+          description: Convert the format of the image to png
+        - name: jpeg
+          parameters: "source:imgID"
+          description: Convert the format of the image to jpeg
+  Format:
+    title: Format
+    type: object
+    properties:
+      name:
+        type: string
+      parameters:
+        type: string
+      description:
+        type: string
+    required:
+      - name
+      - parameters
+      - description
