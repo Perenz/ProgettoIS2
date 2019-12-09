@@ -21,7 +21,7 @@ exports.resize = function (req, res, next) {
     const width = req.query.width;
     const height = req.query.height;
 
-    req.query.script = './scripts/rotate.py';
+    req.query.script = './scripts/resize.py';
     req.query.required = [source, width, height];
     next();
 };
@@ -30,7 +30,7 @@ exports.transpose = function (req, res, next) {
     const source = req.query.source;
     const side = req.query.side;
 
-    req.query.script = './scripts/rotate.py';
+    req.query.script = './scripts/transpose.py';
     req.query.required = [source, side];
     next();
 };
@@ -46,7 +46,7 @@ exports.crop = function (req, res, next) {
     const right = req.query.right;
     const lower = req.query.lower;
 
-    req.query.script = './scripts/rotate.py';
+    req.query.script = './scripts/crop.py';
     req.query.required = [source, left, upper, right, lower];
     next();
 };
