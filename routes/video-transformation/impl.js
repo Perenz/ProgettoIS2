@@ -79,17 +79,17 @@ exports.video_transformation = function (req, res) {
             available: [
                 {
                     "name": "cut",
-                    "schema": "source:videoID, (double)start_time, (double)end_time",
+                    "schema": "source:videoID, start_time:double, end_time:double",
                     "description": "Cut a video from start_time to end_time"
                 },
                 {
                     "name": "speedup",
-                    "schema": "source:videoID, (double)factor",
+                    "schema": "source:videoID, factor:double",
                     "description": "Speed up a video at factor time"
                 },
                 {
                     "name": "resize",
-                    "schema": "source:videoID, (int)pixel_x, (int)pixel_y",
+                    "schema": "source:videoID, pixel_x:int, pixel_y:int",
                     "description": "Resize a video with respect to parameters pixel_x (width) and pixel_y (height)"
                 }
             ]
