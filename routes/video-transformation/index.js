@@ -1,4 +1,4 @@
-const impl = require('./video_transformation');
+const impl = require('./impl.js');
 const express = require('express');
 const router = express.Router();
 
