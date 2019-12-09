@@ -440,6 +440,36 @@ definitions:
       id:
         type: string
         example: 5deb644c1bcc2a33d4e5df36
+
+  TransformationList:
+    title: TransformationList
+    type: object
+    properties:
+      available:
+        type: array
+        items:
+          $ref: '#/definitions/Transformation'
+    example:
+      avaliable:
+        - name: Rotate
+          parameters: "source:imgID angle:int"
+          description: Rotate the image by the given angle
+
+  Transformation:
+    title: Transformation 
+    type: object
+    properties:
+      name:
+        type: string
+      parameters:
+        type: string
+      description:
+        type: string
+    required:
+      - name
+      - parameters
+      - description
+      
   FiltersList:
     title: FiltersList
     type: object
