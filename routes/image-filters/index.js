@@ -1,11 +1,11 @@
 const impl = require('./filters');
+const commons = require('../../middlewares/commons');
 const express = require('express');
 const router = express.Router();
 
 router.get('/', impl.filters);
-router.post('/binary', impl.binary);
-router.post('/greyscale', impl.greyscale);
-router.post('/invert', impl.invert);
-router.all('/*', impl.error404)
+router.post('/binary', impl.binary, commons.params, impl.bucket, commons.exists, commons.execute);
+router.post('/greyscale', impl.greyscale, commons.params, impl.bucket, commons.exists, commons.execute);
+router.post('/invert', impl.invert, commons.params, impl.bucket, commons.exists, commons.execute);
 
 module.exports = router;

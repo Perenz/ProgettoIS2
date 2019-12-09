@@ -1,83 +1,32 @@
-const spawn = require("child_process").spawn;
-const fs = require("fs");
-const {GridFSBucket, ObjectID} = require('mongodb');
-
-function runPyScript(req, res, source, paramList) {
-    const bucket = new GridFSBucket(req.app.locals.db, {
-        bucketName: 'images',
-    });
-
-    bucket
-        .openDownloadStream(new ObjectID(source)) //Error in source name is not caught with the following callback
-        .pipe(fs.createWriteStream(source))
-        .on('finish', () => {
-            spawn('python', paramList)
-                .on('close', (code) => {
-                    if(code==0){
-                        fs
-                            .createReadStream(source)
-                            .pipe(bucket.openUploadStream(source))
-                            .on('error', (error) => {
-                                res
-                                    .status(500)
-                                    .json({error: 'unable to load image'});
-                            })
-                            .on('finish', (doc) => {
-                                res
-                                    .status(200)
-                                    .json({id: doc._id});
-                            })
-                            .on('finish', () => {
-                                fs
-                                    .promises
-                                    .unlink(source)
-                                    .catch((error) => {
-                                        console.log(error);
-                                    })                               
-                            });
-                        }else{
-                            res.status(500)
-                                .json({error: 'Script ended with code '+ code});
-                        }
-                })
-                .on('error', (error) => {
-                    res
-                        .status(500)
-                        .json({error: error});
-                })
-        })
-        .on('error', (error) => {
-            // TODO error's cause could be 404
-            res
-                .status(500)
-                .json({error: 'server error'});
-        })
+exports.bucket = function (req, res, next) {
+    req.query.bucketName = 'images';
+    next();
 };
 
-exports.binary = function (req, res) {
+exports.binary = function (req, res, next) {
     const source = req.query.source;
     const threshold = req.query.threshold;
 
-    runPyScript(req, res, source, ["./scripts/binary.py", source, threshold])
+    req.query.script = './scripts/binary.py';
+    req.query.required = [source, threshold];
+    next();
 };
 
-exports.greyscale = function (req, res) {
+exports.greyscale = function (req, res, next) {
     const source = req.query.source;
 
-    runPyScript(req, res, source, ["./scripts/greyscale.py", source])
+    req.query.script = './scripts/greyscale.py';
+    req.query.required = [source];
+    next();
 };
 
-exports.invert = function (req, res) {
+exports.invert = function (req, res, next) {
     const source = req.query.source;
 
-    runPyScript(req, res, source, ["./scripts/invert.py", source])
+    req.query.script = './scripts/invert.py';
+    req.query.required = [source];
+    next();
 };
-
-
-exports.error404 = function(req,res){
-    res.status(404)
-        .send('Filter not found');
-}
 
 exports.filters = function (req, res) {
     res
