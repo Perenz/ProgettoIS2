@@ -76,7 +76,7 @@ exports.params = function (req, res, next) {
 
 exports.exists = function (req, res, next) {
     const bucketName = req.query.bucketName;
-    const source = req.query.source;
+    const source = req.query.source || req.params.id;
 
     const bucket = new GridFSBucket(req.app.locals.db, {
         bucketName: bucketName,
