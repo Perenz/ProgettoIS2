@@ -77,14 +77,14 @@ exports.formats = function (req, res){
         .json({
             available: [
                 {
-                    "name": "png",
-                    "schema": "source:imgID",
-                    "description": "Convert the format of the image to png"
+                    name: "png",
+                    schema: "source:imgID",
+                    description: "Convert the format of the image to png"
                 },
                 {
-                    "name": "jpeg",
-                    "schema": "source:imgID",
-                    "description": "Convert the format of the image to jpeg"
+                    name: "jpeg",
+                    schema: "source:imgID",
+                    description: "Convert the format of the image to jpeg"
                 }
             ]
         });

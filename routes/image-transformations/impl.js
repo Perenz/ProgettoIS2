@@ -118,30 +118,29 @@ exports.transformations = function (req, res) {
         .json({
             available: [
                 {
-                    "name": "rotate",
-                    "schema": "source:imgID, (int)angle",
-                    "description": "Rotate an image by n degrees"
+                    name: "rotate",
+                    schema: "source:imgID, (int)angle",
+                    description: "Rotate an image by n degrees"
                 },
                 {
-                    "name": "resize",
-                    "schema": "source:imgID, (int)width, (int)height",
-                    "description": "Resize an image given width and height"
+                    name: "resize",
+                    schema: "source:imgID, (int)width, (int)height",
+                    description: "Resize an image given width and height"
                 },
                 {
-                    "name": "transform",
-                    "schema": "source:imgID, (int)width, (int)height, (int)a, (int)b, (int)c, (int)d, (int)e, (int)f, (int)g, (int)h",
-                    "description": "Applies a perspective transform to the image, and places the result in a new image with the given size. "+
-                    "(a, b, c, d, e, f, g, h) contains the coefficients for a perspective transform"
+                    name: "transform",
+                    schema: "source:imgID, (int)width, (int)height, (int)a, (int)b, (int)c, (int)d, (int)e, (int)f, (int)g, (int)h",
+                    description: "Applies a perspective transform to the image, and places the result in a new image with the given size. (a, b, c, d, e, f, g, h) contains the coefficients for a perspective transform"
                 },
                 {
-                    "name": "crop",
-                    "schema": "source:imgID, (int)left, (int)upper, (int)right, (int)lower",
-                    "description": "Crop an image selcting his left, upper, right, lower pixel"
+                    name: "crop",
+                    schema: "source:imgID, (int)left, (int)upper, (int)right, (int)lower",
+                    description: "Crop an image selcting his left, upper, right, lower pixel"
                 },
                 {
-                    "name": "transpose",
-                    "schema": "source:imgID, side:x|y|xy",
-                    "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
+                    name: "transpose",
+                    schema: "source:imgID, side:x|y|xy",
+                    description: "Transpose an image with respect to the specified axis: x, y or xy for both"
                 }
             ]
         });

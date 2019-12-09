@@ -85,19 +85,19 @@ exports.filters = function (req, res) {
         .json({
             available: [
                 {
-                    "name": "greyscale",
-                    "schema": "source:imgID",
-                    "description": "Convert an image into greyscale in 8 bits"
+                    name: "binary",
+                    schema: "source:imgID (int)threshold",
+                    description: "Convert an image into binary with specified threshold"
                 },
                 {
-                    "name": "transpose",
-                    "schema": "source:imgID, side:x|y|xy",
-                    "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
+                    name: "greyscale",
+                    schema: "source:imgID",
+                    description: "Convert an image into greyscale in 8 bits"
                 },
                 {
-                    "name": "invert",
-                    "schema": "source:imgID",
-                    "description": "Invert the colors of an image"
+                    name: "invert",
+                    schema: "source:imgID",
+                    description: "Invert the colors of an image"
                 }
             ]
         });
