@@ -1,92 +1,54 @@
-const spawn = require("child_process").spawn;
-const fs = require("fs");
-const {GridFSBucket, ObjectID} = require('mongodb');
+exports.bucket = function (req, res, next) {
+    req.query.bucketName = 'images';
+    next();
+};
 
-function runPyScript(req, res, source, paramList) {
-    const bucket = new GridFSBucket(req.app.locals.db, {
-        bucketName: 'images',
-    });
-
-    bucket
-        .openDownloadStream(new ObjectID(source))
-        .pipe(fs.createWriteStream(source))
-        .on('finish', () => {
-            spawn('python', paramList)
-                .on('close', () => {
-                    fs
-                        .createReadStream(source)
-                        .pipe(bucket.openUploadStream(source))
-                        .on('error', (error) => {
-                            res
-                                .status(500)
-                                .json({error: 'unable to load image'});
-                        })
-                        .on('finish', (doc) => {
-                            res
-                                .status(200)
-                                .json({id: doc._id});
-                        })
-                        .on('finish', () => {
-                            fs
-                                .promises
-                                .unlink(source)
-                                .catch((error) => {
-                                    console.log(error);
-                                })
-                        });
-                })
-                .on('error', (error) => {
-                    res
-                        .status(500)
-                        .json({error: error});
-                })
-        })
-        .on('error', (error) => {
-            // TODO error's cause could be 404
-            res
-                .status(500)
-                .json({error: 'server error'});
-        })
-}
-
-exports.rotate = function (req, res) {
+exports.rotate = function (req, res, next) {
     const source = req.query.source;
     const angle = req.query.angle;
 
-    runPyScript(req, res, source, ["./scripts/rotate.py", source, angle])
+    req.query.script = './scripts/rotate.py';
+    req.query.required = [source, angle];
+    next();
 };
 
 /*
 Image.resize(size, filter)
 Returns a resized copy of an image. The size argument gives the requested size in pixels, as a 2-tuple: (width, height).
 */
-exports.resize = function (req, res) {
+exports.resize = function (req, res, next) {
     const source = req.query.source;
     const width = req.query.width;
     const height = req.query.height;
 
-    runPyScript(req, res, source, ["./scripts/resize.py", source, width, height])
+    req.query.script = './scripts/rotate.py';
+    req.query.required = [source, width, height];
+    next();
 };
 
-exports.transpose = function (req, res) {
+exports.transpose = function (req, res, next) {
     const source = req.query.source;
     const side = req.query.side;
 
-    runPyScript(req, res, source, ["./scripts/transpose.py", source, side])
+    req.query.script = './scripts/rotate.py';
+    req.query.required = [source, side];
+    next();
 };
 
 /*
 Image.crop(box)
 Returns a copy of a rectangular region from the current image. The box is a 4-tuple defining the left, upper, right, and lower pixel coordinate.
 */
-exports.crop = function (req, res) {
+exports.crop = function (req, res, next) {
     const source = req.query.source;
     const left = req.query.left;
     const upper = req.query.upper;
     const right = req.query.right;
     const lower = req.query.lower;
 
-    runPyScript(req, res, source, ["./scripts/crop.py", source, left, upper, right, lower])
+    req.query.script = './scripts/rotate.py';
+    req.query.required = [source, left, upper, right, lower];
+    next();
 };
 
 /*Image.transform(size, PERSPECTIVE, data, filter)
@@ -96,7 +58,7 @@ Data is a 8-tuple (a, b, c, d, e, f, g, h) which contains the coefficients for a
 
 This function can be used to change the 2D perspective of the original image.
 */
-exports.transform = function (req, res) {
+exports.transform = function (req, res, next) {
     const source = req.query.source;
     const width = req.query.width;
     const height = req.query.height;
@@ -109,7 +71,9 @@ exports.transform = function (req, res) {
     const g = req.query.g;
     const h = req.query.h;
 
-    runPyScript(req, res, source, ["./scripts/transform.py", source, width, height, a, b, c, d, e, f, g, h])
+    req.query.script = './scripts/transform.py';
+    req.query.required = [source, width, height, a, b, c, d, e, f, g, h];
+    next();
 };
 
 exports.transformations = function (req, res) {
@@ -118,30 +82,29 @@ exports.transformations = function (req, res) {
         .json({
             available: [
                 {
-                    "name": "rotate",
-                    "schema": "source:imgID, (int)angle",
-                    "description": "Rotate an image by n degrees"
+                    name: "rotate",
+                    schema: "source:imgID, (int)angle",
+                    description: "Rotate an image by n degrees"
                 },
                 {
-                    "name": "resize",
-                    "schema": "source:imgID, (int)width, (int)height",
-                    "description": "Resize an image given width and height"
+                    name: "resize",
+                    schema: "source:imgID, (int)width, (int)height",
+                    description: "Resize an image given width and height"
                 },
                 {
-                    "name": "transform",
-                    "schema": "source:imgID, (int)width, (int)height, (int)a, (int)b, (int)c, (int)d, (int)e, (int)f, (int)g, (int)h",
-                    "description": "Applies a perspective transform to the image, and places the result in a new image with the given size. "+
-                    "(a, b, c, d, e, f, g, h) contains the coefficients for a perspective transform"
+                    name: "transform",
+                    schema: "source:imgID, (int)width, (int)height, (int)a, (int)b, (int)c, (int)d, (int)e, (int)f, (int)g, (int)h",
+                    description: "Applies a perspective transform to the image, and places the result in a new image with the given size. (a, b, c, d, e, f, g, h) contains the coefficients for a perspective transform"
                 },
                 {
-                    "name": "crop",
-                    "schema": "source:imgID, (int)left, (int)upper, (int)right, (int)lower",
-                    "description": "Crop an image selcting his left, upper, right, lower pixel"
+                    name: "crop",
+                    schema: "source:imgID, (int)left, (int)upper, (int)right, (int)lower",
+                    description: "Crop an image selcting his left, upper, right, lower pixel"
                 },
                 {
-                    "name": "transpose",
-                    "schema": "source:imgID, side:x|y|xy",
-                    "description": "Transpose an image with respect to the specified axis: x, y or xy for both"
+                    name: "transpose",
+                    schema: "source:imgID, side:x|y|xy",
+                    description: "Transpose an image with respect to the specified axis: x, y or xy for both"
                 }
             ]
         });
