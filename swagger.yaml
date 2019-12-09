@@ -12,6 +12,7 @@ tags:
 - name: "Videos"
 - name: "Images Filters"
 - name: "Images Formats"
+- name: "Images Transformations"
 schemes:
 - http
 consumes:
@@ -101,7 +102,7 @@ paths:
           description: Successful Response - The ID of the uploaded video is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
-///////////////////////////////////////////////////////////////////////////
+            
   /images-transformations:   
     get:
       tags:
@@ -120,7 +121,7 @@ paths:
   /image-transformations/rotate:
     post: 
       tags:
-        - "Images Filters"
+        - "Images Transformations"
       summary: Apply the rotation to an Image
       parameters:
         - in: query
@@ -144,7 +145,7 @@ paths:
   /image-transformations/resize:
     post: 
       tags:
-        - "Images Filters"
+        - "Images Transformations"
       summary: Returns a resized copy of an image
       parameters:
         - in: query
@@ -172,7 +173,7 @@ paths:
   /image-transformations/transpose:
     post: 
       tags:
-        - "Images Filters"
+        - "Images Transformations"
       summary: Apply the transpose to an Image
       parameters:
         - in: query
@@ -181,8 +182,12 @@ paths:
           required: true
         - in: query
           name: side
-          type: string // x | y |xy
+          type: string
           required: true
+          enum:
+            - x
+            - y
+            - xy
       consumes:
         - application/json
       produces:
@@ -196,7 +201,7 @@ paths:
   /image-transformations/crop:
     post: 
       tags:
-        - "Images Filters"
+        - "Images Transformations"
       summary: Returns a copy of a rectangular region from the current image
       parameters:
         - in: query
@@ -232,7 +237,7 @@ paths:
   /image-transformations/transform:
     post: 
       tags:
-        - "Images Filters"
+        - "Images Transformations"
       summary: Applies a perspective transform to the image, and places the result in a new image with the given size
       parameters:
         - in: query
@@ -289,7 +294,7 @@ paths:
           schema:
             $ref: '#/definitions/ImVidResponse'
 
-///////////////////////////////////////////////////////////////////////////
+
   /image-filters:
     get:
       tags:
@@ -336,8 +341,10 @@ paths:
           type: string
           required: true
         - in: query
-          name: treshold
+          name: treshsold
           type: integer
+          minimum: 0
+          maximum: 255
           required: true
       consumes:
         - application/json
