@@ -3,6 +3,7 @@ const logger = require('morgan');
 const {db} = require('./persistance');
 
 const image = require('./routes/image/index');
+const images = require('./routes/images/index');
 const video = require('./routes/video/index');
 const filters = require('./routes/image-filters');
 const formats = require('./routes/image-formats');
@@ -19,6 +20,7 @@ app.use(express.urlencoded({
 }));
 
 app.use('/image', image);
+app.use('/images', images);
 app.use('/video', video);
 app.use("/image-filters", filters);
 app.use("/image-formats", formats);
