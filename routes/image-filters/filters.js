@@ -73,19 +73,6 @@ exports.invert = function (req, res) {
     runPyScript(req, res, source, ["./scripts/invert.py", source])
 };
 
-exports.rotate = function (req, res) {
-    const source = req.query.source;
-    const angle = req.query.angle;
-
-    runPyScript(req, res, source, ["./scripts/rotate.py", source, angle])
-};
-
-exports.transpose = function (req, res) {
-    const source = req.query.source;
-    const side = req.query.side;
-
-    runPyScript(req, res, source, ["./scripts/transpose.py", source, side])
-};
 
 exports.error404 = function(req,res){
     res.status(404)
