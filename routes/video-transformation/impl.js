@@ -1,5 +1,5 @@
 exports.bucket = function (req, res, next) {
-    req.query.bucketName = 'images';
+    req.query.bucketName = 'videos';
     next();
 };
 
