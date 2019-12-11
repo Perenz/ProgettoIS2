@@ -5,4 +5,4 @@ exports.bucket = function (req, res, next) {
     next();
 };
 
-exports.upload = upload.singleMulter('videos', ['video/mp4']);
+exports.upload = upload.arrayMulter('videos', ['video/mp4']);
