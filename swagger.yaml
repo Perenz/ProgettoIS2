@@ -31,6 +31,7 @@ paths:
           name: id
           required: true
           type: string
+          x-example: "1234"
       responses:
         200:
           description: Successful Response - The image is returned
