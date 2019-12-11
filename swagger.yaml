@@ -13,6 +13,8 @@ tags:
 - name: "Images Filters"
 - name: "Images Formats"
 - name: "Images Transformations"
+- name: "Videos Transformations"
+
 schemes:
 - http
 produces:
@@ -284,6 +286,117 @@ paths:
           schema:
             $ref: '#/definitions/ImVidResponse'
 
+/video-transformation:
+    get:
+      tags:
+        - "Video Transformation"
+      summary: List the available video transformation 
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/VideoTranformationList'
+          
+            type: object
+            properties:
+              available:
+                type: array
+                items:
+                  $ref: '#/definitions/videoTransformationList'
+            example:
+              avaliable:
+                - name: cut
+                  parameters: "source:videoID, pixel_x:int, pixel_y:int"
+                  description: Resize a video with respect to parameters pixel_x (width) and pixel_y (height)
+                - name: speedup
+                  parameters: "source:videoID, factor:double"
+                  description: Speed up a video at factor time
+                - name: "resize",
+                  schema: "source:videoID, pixel_x:int, pixel_y:int",
+                  description: "Resize a video with respect to parameters pixel_x (width) and pixel_y (height)"
+
+  /video-transformation/speedup:
+    post: 
+      tags:
+        - "Speed Up"
+      summary: Speed up a video at factor time
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: factor
+          type: double
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:xx
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+  /video-transformation/cut:
+    post: 
+      tags:
+        - "Cut"
+      summary: Cut a video from start_time to end_time
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: start_time
+          type: double
+          required: true
+        - in: query
+          name: end_time
+          type: double
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:xx
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+  /video-transformation/resize:
+    post: 
+      tags:
+        - "Resize"
+      summary: Resize a video with respect to parameters pixel_x (width) and pixel_y (height)
+      parameters:
+        - in: query
+          name: source
+          type: string
+          required: true
+        - in: query
+          name: pixel_x
+          type: double
+          required: true
+        - in: query
+          name: pixel_y
+          type: double
+          required: true
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:xx
+        201:
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/ImVidResponse'
+  
 
   /image-filters:
     get:
@@ -522,3 +635,5 @@ definitions:
       - name
       - parameters
       - description
+
+
