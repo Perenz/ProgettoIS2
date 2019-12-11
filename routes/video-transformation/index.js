@@ -10,4 +10,4 @@ router.post('/speedup', impl.speedup, commons.params, impl.bucket, commons.exist
 router.post('/resize', impl.resize , commons.params, impl.bucket, commons.exists, commons.execute);
 
 
-module.exports = router;
+module.exports = router; 
