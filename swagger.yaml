@@ -31,7 +31,7 @@ paths:
           name: id
           required: true
           type: string
-          x-example: "1234"
+          x-example: "5df120c4318a2b00163eb780"
       responses:
         200:
           description: Successful Response - The image is returned
@@ -121,10 +121,12 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
         - in: query
           name: angle
           type: integer
           required: true
+          x-example: 30
       produces:
         - application/json
       responses:
@@ -143,6 +145,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
         - in: query
           name: width
           type: integer
@@ -169,6 +172,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
         - in: query
           name: side
           type: string
@@ -177,6 +181,7 @@ paths:
             - x
             - y
             - xy
+          x-example: x
       produces:
         - application/json
       responses:
@@ -195,6 +200,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
         - in: query
           name: left
           type: integer
@@ -229,6 +235,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
         - in: query
           name: width
           type: integer
@@ -291,16 +298,17 @@ paths:
           schema:
             $ref: '#/definitions/FiltersList'
 
-  /image-filters/grayscale:
+  /image-filters/greyscale:
     post: 
       tags:
         - "Images Filters"
-      summary: Apply the grayscale filter to an Image
+      summary: Apply the greyscale filter to an Image
       parameters:
         - in: query
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
       produces:
         - application/json
       responses:
@@ -319,12 +327,14 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
         - in: query
           name: treshsold
           type: integer
           minimum: 0
           maximum: 255
           required: true
+          x-example: 100
       produces:
         - application/json
       responses:
@@ -343,6 +353,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
       produces:
         - application/json
       responses:
@@ -374,6 +385,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
       produces:
         - application/json
       responses:
@@ -392,6 +404,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df120c4318a2b00163eb780
       produces:
         - application/json
       responses:
@@ -415,7 +428,7 @@ definitions:
     properties:
       id:
         type: string
-        example: 5deb644c1bcc2a33d4e5df36
+        example: 5df12355318a2b00163eb786
 
   TransformationList:
     title: TransformationList
@@ -456,10 +469,10 @@ definitions:
           $ref: '#/definitions/Filter'
     example:
       avaliable:
-        - name: Grayscale
+        - name: greyscale
           parameters: "source:imgID"
           description: Convert an image into greyscale in 8 bits
-        - name: Binary
+        - name: binary
           parameters: "source:imgID treshold:int"
           description: >-
             Every pixel of the image is made either white or black
