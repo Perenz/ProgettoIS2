@@ -3,7 +3,7 @@ exports.bucket = function (req, res, next) {
     next();
 };
 
-exports.cut = function (req, res) {
+exports.cut = function (req, res,next) {
     const source = req.query.source;
     const start_time = req.query.start_time;
     const finish_time = req.query.finish_time;
@@ -13,7 +13,7 @@ exports.cut = function (req, res) {
     next();
 };
 
-exports.speedup = function (req, res) {
+exports.speedup = function (req, res,next) {
     const source = req.query.source;
     const factor = req.query.factor;
    
@@ -22,7 +22,7 @@ exports.speedup = function (req, res) {
     next();
 };
 
-exports.resize = function (req, res) {
+exports.resize = function (req, res,next) {
     const source = req.query.source;
     const pixel_x = req.query.pixel_x;
     const pixel_y = req.query.pixel_y;
