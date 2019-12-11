@@ -32,7 +32,7 @@ exports.resize = function (req, res,next) {
     next();
 };
 /////
-exports.video_transformation = function (req, res, next) {
+exports.video_transformation = function (req, res) {
     res
         .status(200)
         .json({
