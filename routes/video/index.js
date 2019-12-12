@@ -5,6 +5,6 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', impl.upload, storage.singleRecap);
-router.get('/:id', impl.bucket, commons.exists, storage.download);
+router.get('/', impl.bucket, commons.exists, storage.download);
 
 module.exports = router;

@@ -79,7 +79,7 @@ exports.arrayRecap = function (req, res) {
 
 exports.download = function (req, res) {
     req.query.bucket
-        .openDownloadStream(new ObjectID(req.params.id))
+        .openDownloadStream(new ObjectID(req.query.id))
         .pipe(res)
         .on('error', function () {
             res
