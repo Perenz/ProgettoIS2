@@ -13,6 +13,7 @@ tags:
 - name: "Images Filters"
 - name: "Images Formats"
 - name: "Images Transformations"
+- name: "Video Transformations"
 schemes:
 - http
 produces:
