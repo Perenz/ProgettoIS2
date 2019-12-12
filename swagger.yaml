@@ -439,7 +439,7 @@ paths:
           name: source
           type: string
           required: true
-          x-example: 5df1f10b1fc5852c18ea3fa9
+          x-example: 5df2074954b19b001b5a0a47
         - in: query
           name: factor
           type: number
@@ -464,17 +464,17 @@ paths:
           name: source
           type: string
           required: true
-          x-example: 5df1f10b1fc5852c18ea3fa9
+          x-example: 5df2074954b19b001b5a0a47
         - in: query
           name: start_time
           type: number
-          format: double
+          format: float
           required: true
           x-example: 1
         - in: query
           name: end_time
           type: number
-          format: double
+          format: float
           required: true
           x-example: 2
       produces:
@@ -495,17 +495,17 @@ paths:
           name: source
           type: string
           required: true
-          x-example: 5df1f10b1fc5852c18ea3fa9
+          x-example: 5df2074954b19b001b5a0a47
         - in: query
           name: pixel_x
           type: number
-          format: double
+          format: float
           required: true
           x-example: 100
         - in: query
           name: pixel_y
           type: number
-          format: double
+          format: float
           required: true
           x-example: 100
       produces:
