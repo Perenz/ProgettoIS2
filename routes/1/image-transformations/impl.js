@@ -51,31 +51,6 @@ exports.crop = function (req, res, next) {
     next();
 };
 
-/*Image.transform(size, PERSPECTIVE, data, filter)
-Applies a perspective transform to the image, and places the result in a new image with the given size.
-
-Data is a 8-tuple (a, b, c, d, e, f, g, h) which contains the coefficients for a perspective transform. For each pixel (x, y) in the output image, the new value is taken from a position (a x + b y + c)/(g x + h y + 1), (d x + e y + f)/(g x + h y + 1) in the input image, rounded to nearest pixel.
-
-This function can be used to change the 2D perspective of the original image.
-*/
-exports.transform = function (req, res, next) {
-    const source = req.query.source;
-    const width = req.query.width;
-    const height = req.query.height;
-    const a = req.query.a;
-    const b = req.query.b;
-    const c = req.query.c;
-    const d = req.query.d;
-    const e = req.query.e;
-    const f = req.query.f;
-    const g = req.query.g;
-    const h = req.query.h;
-
-    req.query.script = './scripts/images/transform.py';
-    req.query.required = [source, width, height, a, b, c, d, e, f, g, h];
-    next();
-};
-
 exports.transformations = function (req, res) {
     res
         .status(200)
