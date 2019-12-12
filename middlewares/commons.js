@@ -116,7 +116,7 @@ exports.execute = function (req, res) {
         .catch((error) => {
             res
                 .status(500)
-                .json(error);
+                .json({error: error});
         })
         .finally(() =>
             fs.promises.unlink(source)
