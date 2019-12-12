@@ -1,5 +1,5 @@
 const impl = require('./impl');
-const storage = require('../../middlewares/storage');
+const storage = require('../../../middlewares/storage');
 
 const express = require('express');
 const router = express.Router();
