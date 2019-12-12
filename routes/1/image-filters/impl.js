@@ -7,7 +7,7 @@ exports.binary = function (req, res, next) {
     const source = req.query.source;
     const threshold = req.query.threshold;
 
-    req.query.script = './scripts/binary.py';
+    req.query.script = './scripts/images/binary.py';
     req.query.required = [source, threshold];
     next();
 };
@@ -15,7 +15,7 @@ exports.binary = function (req, res, next) {
 exports.greyscale = function (req, res, next) {
     const source = req.query.source;
 
-    req.query.script = './scripts/greyscale.py';
+    req.query.script = './scripts/images/greyscale.py';
     req.query.required = [source];
     next();
 };
@@ -23,7 +23,7 @@ exports.greyscale = function (req, res, next) {
 exports.invert = function (req, res, next) {
     const source = req.query.source;
 
-    req.query.script = './scripts/invert.py';
+    req.query.script = './scripts/images/invert.py';
     req.query.required = [source];
     next();
 };

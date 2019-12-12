@@ -7,7 +7,7 @@ exports.rotate = function (req, res, next) {
     const source = req.query.source;
     const angle = req.query.angle;
 
-    req.query.script = './scripts/rotate.py';
+    req.query.script = './scripts/images/rotate.py';
     req.query.required = [source, angle];
     next();
 };
@@ -21,7 +21,7 @@ exports.resize = function (req, res, next) {
     const width = req.query.width;
     const height = req.query.height;
 
-    req.query.script = './scripts/resize.py';
+    req.query.script = './scripts/images/resize.py';
     req.query.required = [source, width, height];
     next();
 };
@@ -30,7 +30,7 @@ exports.transpose = function (req, res, next) {
     const source = req.query.source;
     const side = req.query.side;
 
-    req.query.script = './scripts/transpose.py';
+    req.query.script = './scripts/images/transpose.py';
     req.query.required = [source, side];
     next();
 };
@@ -46,7 +46,7 @@ exports.crop = function (req, res, next) {
     const right = req.query.right;
     const lower = req.query.lower;
 
-    req.query.script = './scripts/crop.py';
+    req.query.script = './scripts/images/crop.py';
     req.query.required = [source, left, upper, right, lower];
     next();
 };
@@ -71,7 +71,7 @@ exports.transform = function (req, res, next) {
     const g = req.query.g;
     const h = req.query.h;
 
-    req.query.script = './scripts/transform.py';
+    req.query.script = './scripts/images/transform.py';
     req.query.required = [source, width, height, a, b, c, d, e, f, g, h];
     next();
 };

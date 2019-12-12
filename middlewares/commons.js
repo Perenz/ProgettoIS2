@@ -59,6 +59,10 @@ function undef(x) {
     return x === undefined || x === null;
 }
 
+function output(source) {
+    return `new_${source}`;
+}
+
 exports.params = function (req, res, next) {
     const script = req.query.script;
     const required = req.query.required;
@@ -107,7 +111,7 @@ exports.execute = function (req, res) {
 
     download(bucket, source)
         .then(() => python(params))
-        .then(() => upload(bucket, source))
+        .then(() => upload(bucket, output(source)))
         .then((doc) => {
             res
                 .status(200)
@@ -120,6 +124,9 @@ exports.execute = function (req, res) {
         })
         .finally(() =>
             fs.promises.unlink(source)
+        )
+        .finally(() =>
+            fs.promises.unlink(output(source))
         )
         .catch((error) => {
             console.log(error);

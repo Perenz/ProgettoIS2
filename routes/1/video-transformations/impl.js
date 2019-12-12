@@ -8,7 +8,7 @@ exports.cut = function (req, res,next) {
     const start_time = req.query.start_time;
     const finish_time = req.query.finish_time;
 
-    req.query.script = "./scripts/v_cut.py";
+    req.query.script = "./scripts/videos/cut.py";
     req.query.required = [source, start_time, finish_time];
     next();
 };
@@ -17,7 +17,7 @@ exports.speedup = function (req, res,next) {
     const source = req.query.source;
     const factor = req.query.factor;
    
-    req.query.script =  "./scripts/v_speedup.py";
+    req.query.script =  "./scripts/videos/speedup.py";
     req.query.required = [source, factor];
     next();
 };
@@ -27,11 +27,11 @@ exports.resize = function (req, res,next) {
     const pixel_x = req.query.pixel_x;
     const pixel_y = req.query.pixel_y;
 
-    req.query.script =  "./scripts/v_resize.py";
+    req.query.script =  "./scripts/videos/resize.py";
     req.query.required = [source, pixel_x, pixel_y];
     next();
 };
-/////
+
 exports.video_transformation = function (req, res) {
     res
         .status(200)

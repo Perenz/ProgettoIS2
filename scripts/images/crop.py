@@ -8,5 +8,7 @@ upper = int(sys.argv[3])
 right = int(sys.argv[4])
 lower = int(sys.argv[5])
 
+out = 'new_' + name
+
 im = Image.open(name)
-im.crop((left,upper,right,lower)).save(name, format=im.format)
+im.crop((left,upper,right,lower)).save(out, format=im.format)
