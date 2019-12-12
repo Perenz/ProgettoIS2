@@ -1,6 +1,6 @@
 const impl = require('./impl');
-const storage = require('../../middlewares/storage');
-const commons = require("../../middlewares/commons");
+const storage = require('../../../middlewares/storage');
+const commons = require("../../../middlewares/commons");
 const express = require('express');
 const router = express.Router();
 
