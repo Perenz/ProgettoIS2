@@ -4,12 +4,13 @@ const {db} = require('./persistance');
 
 const image = require('./routes/image/index');
 const images = require('./routes/images/index');
+const image_filters = require('./routes/image-filters/index');
+const image_formats = require('./routes/image-formats/index');
+const image_transformations = require('./routes/image-transformations/index');
+
 const video = require('./routes/video/index');
 const videos = require('./routes/videos/index');
-const filters = require('./routes/image-filters');
-const video_transformation = require('./routes/video-transformation/index');
-const formats = require('./routes/image-formats');
-const transformations = require('./routes/image-transformations');
+const video_transformations = require('./routes/video-transformations/index');
 
 const app = express();
 
@@ -23,12 +24,13 @@ app.use(express.urlencoded({
 
 app.use('/image', image);
 app.use('/images', images);
+app.use('/image-filters', image_filters);
+app.use('/image-formats', image_formats);
+app.use('/image-transformations', image_transformations);
+
 app.use('/video', video);
 app.use('/videos', videos);
-app.use("/image-filters", filters);
-app.use("/video-transformation", video_transformation )
-app.use("/image-formats", formats);
-app.use("/image-transformations", transformations);
+app.use('/video-transformations', video_transformations);
 
 
 module.exports = app;
