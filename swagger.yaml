@@ -450,6 +450,7 @@ paths:
           type: number
           format: double
           required: true
+          x-example: 2
       produces:
         - application/json
       responses:
@@ -474,11 +475,13 @@ paths:
           type: number
           format: double
           required: true
+          x-example: 3
         - in: query
           name: end_time
           type: number
           format: double
           required: true
+          x-example: 7
       produces:
         - application/json
       responses:
@@ -503,11 +506,13 @@ paths:
           type: number
           format: double
           required: true
+          x-example: 100
         - in: query
           name: pixel_y
           type: number
           format: double
           required: true
+          x-example: 100
       produces:
         - application/json
       responses:
