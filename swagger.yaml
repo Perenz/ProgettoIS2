@@ -6,7 +6,7 @@ info:
   license:
     name: MIT
 host: arcane-sea-78633.herokuapp.com
-basePath: /
+basePath: /v1
 tags:
 - name: "Images"
 - name: "Videos"
@@ -14,7 +14,7 @@ tags:
 - name: "Images Formats"
 - name: "Images Transformations"
 schemes:
-- http
+- https
 produces:
 - application/json
 paths:  
@@ -71,6 +71,7 @@ paths:
           name: id
           required: true
           type: string
+          x-example: 5df2074954b19b001b5a0a47
       responses:
         200:
           description: Successful Response - The video is returned
@@ -130,7 +131,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new rotated image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -150,14 +151,16 @@ paths:
           name: width
           type: integer
           required: true
+          x-example: 500
         - in: query
           name: height
           type: integer
           required: true
+          x-example: 700
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new resized image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -185,7 +188,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new transposed image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -205,22 +208,26 @@ paths:
           name: left
           type: integer
           required: true
+          x-example: 100
         - in: query
           name: upper
           type: integer
           required: true
+          x-example: 100
         - in: query
           name: right
           type: integer
           required: true
+          x-example: 300
         - in: query
           name: lower
           type: integer
           required: true
+          x-example: 300
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new cropped image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -279,7 +286,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new transformed image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -312,7 +319,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -338,7 +345,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -357,7 +364,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response - The ID of the new modified image is returned
           schema:
             $ref: '#/definitions/ImVidResponse' 
@@ -437,6 +444,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df2074954b19b001b5a0a47
         - in: query
           name: factor
           type: number
@@ -445,7 +453,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -460,6 +468,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df2074954b19b001b5a0a47
         - in: query
           name: start_time
           type: number
@@ -473,7 +482,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response
           schema:
             $ref: '#/definitions/ImVidResponse'
@@ -488,6 +497,7 @@ paths:
           name: source
           type: string
           required: true
+          x-example: 5df2074954b19b001b5a0a47
         - in: query
           name: pixel_x
           type: number
@@ -501,7 +511,7 @@ paths:
       produces:
         - application/json
       responses:
-        201:
+        200:
           description: Successful Response
           schema:
             $ref: '#/definitions/ImVidResponse'
