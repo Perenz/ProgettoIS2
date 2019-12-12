@@ -449,7 +449,7 @@ paths:
         - in: query
           name: factor
           type: number
-          format: float
+          format: double
           required: true
           x-example: 2
       produces:
@@ -474,13 +474,13 @@ paths:
         - in: query
           name: start_time
           type: number
-          format: float
+          format: double
           required: true
           x-example: 3
         - in: query
           name: end_time
           type: number
-          format: float
+          format: double
           required: true
           x-example: 7
       produces:
@@ -505,13 +505,13 @@ paths:
         - in: query
           name: pixel_x
           type: number
-          format: float
+          format: double
           required: true
           x-example: 100
         - in: query
           name: pixel_y
           type: number
-          format: float
+          format: double
           required: true
           x-example: 100
       produces:
