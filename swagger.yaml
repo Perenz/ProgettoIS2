@@ -233,65 +233,6 @@ paths:
           schema:
             $ref: '#/definitions/ImVidResponse'
 
-  /image-transformations/transform:
-    post: 
-      tags:
-        - "Images Transformations"
-      summary: Applies a perspective transform to the image, and places the result in a new image with the given size
-      parameters:
-        - in: query
-          name: source
-          type: string
-          required: true
-          x-example: 5df120c4318a2b00163eb780
-        - in: query
-          name: width
-          type: integer
-          required: true
-        - in: query
-          name: height
-          type: integer
-          required: true
-        - in: query
-          name: a
-          type: integer
-          required: true
-        - in: query
-          name: b
-          type: integer
-          required: true
-        - in: query
-          name: c
-          type: integer
-          required: true
-        - in: query
-          name: d
-          type: integer
-          required: true
-        - in: query
-          name: e
-          type: integer
-          required: true
-        - in: query
-          name: f
-          type: integer
-          required: true
-        - in: query
-          name: g
-          type: integer
-          required: true
-        - in: query
-          name: h
-          type: integer
-          required: true
-      produces:
-        - application/json
-      responses:
-        200:
-          description: Successful Response - The ID of the new transformed image is returned
-          schema:
-            $ref: '#/definitions/ImVidResponse'
-
 
   /image-filters:
     get:
