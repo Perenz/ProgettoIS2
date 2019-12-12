@@ -13,6 +13,7 @@ tags:
 - name: "Images Filters"
 - name: "Images Formats"
 - name: "Images Transformations"
+- name: "Video Transformations"
 schemes:
 - https
 produces:
@@ -473,13 +474,13 @@ paths:
         - in: query
           name: start_time
           type: number
-          format: double
+          format: float
           required: true
           x-example: 3
         - in: query
           name: end_time
           type: number
-          format: double
+          format: float
           required: true
           x-example: 7
       produces:
@@ -504,13 +505,13 @@ paths:
         - in: query
           name: pixel_x
           type: number
-          format: double
+          format: float
           required: true
           x-example: 100
         - in: query
           name: pixel_y
           type: number
-          format: double
+          format: float
           required: true
           x-example: 100
       produces:
