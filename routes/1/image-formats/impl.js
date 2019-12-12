@@ -6,7 +6,7 @@ exports.bucket = function (req, res, next) {
 exports.png = function (req, res, next) {
     const source = req.query.source;
 
-    req.query.script = './scripts/png.py';
+    req.query.script = './scripts/images/png.py';
     req.query.required = [source];
     next();
 };
@@ -14,7 +14,7 @@ exports.png = function (req, res, next) {
 exports.jpeg = function (req, res, next) {
     const source = req.query.source;
 
-    req.query.script = './scripts/jpeg.py';
+    req.query.script = './scripts/images/jpeg.py';
     req.query.required = [source];
     next();
 };

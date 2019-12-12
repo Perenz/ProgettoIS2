@@ -14,5 +14,7 @@ f = int(sys.argv[9])
 g = int(sys.argv[10])
 h = int(sys.argv[11])
 
+out = 'new_' + name
+
 im = Image.open(name)
-im.transform((width, height), Image.PERSPECTIVE, (a,b,c,d,e,f,g,h)).save(name, format=im.format)
+im.transform((width, height), Image.PERSPECTIVE, (a,b,c,d,e,f,g,h)).save(out, format=im.format)
