@@ -449,7 +449,7 @@ paths:
         - in: query
           name: factor
           type: number
-          format: double
+          format: float
           required: true
           x-example: 2
       produces:
