@@ -1,6 +1,9 @@
-# ProgettoIS2
+# ProgettoIS2 - TacoFall
 
 Progetto del corso di Ingegneria del Software 2, terzo anno della laurea triennale in Informatica presso l'Università degli Studi di Trento
+
+## Descrizione
+APIs che permettono ad un utente di caricare immagini e video e di eseguirci dell'elaborazione, applicarci filtri e trasformazioni varie.
 
 ## Studenti
 
