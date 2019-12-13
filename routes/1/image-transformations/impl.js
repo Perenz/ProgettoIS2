@@ -67,11 +67,6 @@ exports.transformations = function (req, res) {
                     description: "Resize an image given width and height"
                 },
                 {
-                    name: "transform",
-                    schema: "source:imgID, (int)width, (int)height, (int)a, (int)b, (int)c, (int)d, (int)e, (int)f, (int)g, (int)h",
-                    description: "Applies a perspective transform to the image, and places the result in a new image with the given size. (a, b, c, d, e, f, g, h) contains the coefficients for a perspective transform"
-                },
-                {
                     name: "crop",
                     schema: "source:imgID, (int)left, (int)upper, (int)right, (int)lower",
                     description: "Crop an image selcting his left, upper, right, lower pixel"
