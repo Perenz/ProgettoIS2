@@ -5,7 +5,7 @@ info:
   description: It is an API that allows the user to upload images and videos and to do some processing on them.
   license:
     name: MIT
-host: arcane-sea-78633.herokuapp.com
+host: taco-fall.herokuapp.com
 basePath: /v1
 tags:
 - name: "Images"
@@ -59,6 +59,30 @@ paths:
           description: Successful Response - The ID of the uploaded image is returned
           schema:
             $ref: '#/definitions/ImVidResponse'
+            
+  /images:
+    post:
+      tags:
+        - "Images"
+      summary: Upload many images
+      consumes:
+      - multipart/form-data
+      produces: 
+        - application/json
+      parameters:
+        - in: formData
+          name: files
+          type: array
+          required: true
+          items:
+            type: string
+            format: binary
+          description: The images to upload, jpg or png
+      responses:
+        200:
+          description: Successful Response - IDs and OriginalNames of the uploaded images are returned
+          schema:
+            $ref: '#/definitions/MultiImResponse'
                 
   /video:
     get:
@@ -100,7 +124,31 @@ paths:
           schema:
             $ref: '#/definitions/ImVidResponse'
             
-  /images-transformations:   
+  /videos:
+    post:
+      tags:
+        - "Videos"
+      summary: Upload many videos
+      consumes:
+      - multipart/form-data
+      produces: 
+        - application/json
+      parameters:
+        - in: formData
+          name: files
+          type: array
+          required: true
+          items:
+            type: string
+            format: binary
+          description: The videos to upload
+      responses:
+        200:
+          description: Successful Response - IDs and OriginalNames of the uploaded videos are returned
+          schema:
+            $ref: '#/definitions/MultiVidResponse'
+            
+  /image-transformations:   
     get:
       tags:
         - "Images Transformations"
@@ -419,7 +467,7 @@ paths:
           required: true
           x-example: 3
         - in: query
-          name: end_time
+          name: finish_time
           type: number
           format: double
           required: true
@@ -509,6 +557,46 @@ definitions:
           parameters: "source:imgID factor:double"
           description: Speed up the video with respect to the given factor
       
+  MultiImResponse:
+    title: MultiImResponse
+    type: object
+    properties:
+      ids:
+        type: array
+        items:
+          type: string
+      names:
+        type: array
+        items:
+          type: string
+    example:
+      ids:
+        - 5df12355318a2b00163eb786
+        - 5df120c4318a2b00163eb780
+      names:
+        - TacoFallImage.jpg
+        - SoftwareEngineeringImage.png
+        
+  MultiVidResponse:
+    title: MultiVidResponse
+    type: object
+    properties:
+      ids:
+        type: array
+        items:
+          type: string
+      names:
+        type: array
+        items:
+          type: string
+    example:
+      ids:
+        - 5df12355318a2b00163eb786
+        - 5df120c4318a2b00163eb780
+      names:
+        - TacoFallVideo.mp4
+        - TacoFallDunk.mp4
+        
   FiltersList:
     title: FiltersList
     type: object
