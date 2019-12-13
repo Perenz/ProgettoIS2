@@ -96,7 +96,7 @@ paths:
           name: id
           required: true
           type: string
-          x-example: 5df2074954b19b001b5a0a47
+          x-example: 5df3fb2e3a240b00161122d9
       responses:
         200:
           description: Successful Response - The video is returned
@@ -326,7 +326,7 @@ paths:
           required: true
           x-example: 5df120c4318a2b00163eb780
         - in: query
-          name: treshsold
+          name: threshold
           type: integer
           minimum: 0
           maximum: 255
@@ -434,7 +434,7 @@ paths:
           name: source
           type: string
           required: true
-          x-example: 5df2074954b19b001b5a0a47
+          x-example: 5df3fb2e3a240b00161122d9
         - in: query
           name: factor
           type: number
@@ -459,7 +459,7 @@ paths:
           name: source
           type: string
           required: true
-          x-example: 5df2074954b19b001b5a0a47
+          x-example: 5df3fb2e3a240b00161122d9
         - in: query
           name: start_time
           type: number
@@ -490,7 +490,7 @@ paths:
           name: source
           type: string
           required: true
-          x-example: 5df2074954b19b001b5a0a47
+          x-example: 5df3fb2e3a240b00161122d9
         - in: query
           name: pixel_x
           type: number
