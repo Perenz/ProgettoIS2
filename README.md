@@ -20,6 +20,6 @@ APIs che permettono ad un utente di caricare immagini e video e di eseguirci del
 
 [Sprint backlog](https://docs.google.com/spreadsheets/d/1BfTntB8q7N87c1wQtOFQ5EyVKVOSM7RGG05DUwB-Bho/edit#gid=1609316299)
 
-[Postman Collection](https://www.getpostman.com/collections/eff104e06fd81d77c0d7)
+[Postman Collection](https://www.getpostman.com/collections/a789389a7cc9303ad13f)
 
 [Apiary Documentation](https://progettois2.docs.apiary.io/#reference)
